@@ -23,9 +23,9 @@
 Piezas::Piezas() : board(3, std::vector<Piece>(2))
 {
 	turn=Blank;
-	for(unsigned int r=0;r<BOARD_ROWS;r++){
-		for(unsigned int c=0;c<BOARD_COLS;c++){
-			board[r][c]=turn;
+	for(unsigned int r=0;r<3;r++){
+		for(unsigned int c=0;c<4;c++){
+			board[r][c]=Blank;
 		}
 	}
 	turn=X;
@@ -60,7 +60,7 @@ Piece Piezas::dropPiece(int column){
 		return Blank;
 	else{
 		int i=0;
-		while(board[2-i][column] && i<3)//at least one place in column is open
+		while(i<3 && board[2-i][column])//at least one place in column is open
 		{
 			if(board[2-i][column]==Blank){
 				board[2-i][column]=turn;
@@ -86,8 +86,7 @@ Piece Piezas::pieceAt(int row, int column){
 	if(row>2 || column>3)
 		return Invalid;
 	
-	p1=board[2-row][column];
-	return p1;
+	return board[2-row][column];
 }
 
 /**
